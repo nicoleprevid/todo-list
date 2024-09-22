@@ -1,26 +1,17 @@
-# Usar uma imagem base do Node.js
-FROM node:16
+FROM node:lts-alpine
 
-# Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copiar os arquivos package.json e package-lock.json para instalar as dependências
 COPY package*.json ./
 
-# Instalar as dependências
 RUN npm install
 
-# Copiar todo o código do projeto para dentro do contêiner
 COPY . .
 
-# Construir a aplicação para produção
 RUN npm run build
 
-# Instalar o servidor HTTP para servir a aplicação
 RUN npm install -g serve
 
-# Expor a porta que o servidor usará
 EXPOSE 8080
 
-# Comando para iniciar o servidor
 CMD ["serve", "-s", "build"]
