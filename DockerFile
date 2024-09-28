@@ -1,13 +1,22 @@
-FROM node:10-alpine
+FROM node:latest
 
-WORKDIR /app
+# Definir o diretório de trabalho
+WORKDIR /src
 
+# Copiar os arquivos da aplicação
 COPY package*.json ./
+COPY . .
 
+# Definir variáveis de ambiente para o React
+ENV HOST=0.0.0.0
+ENV PORT=8080
+
+# Instalar as dependências
 RUN npm install
 
-RUN npm run build
 
+# Expor a porta 8080
 EXPOSE 8080
 
+# Comando para rodar a aplicação
 CMD ["npm", "start"]
